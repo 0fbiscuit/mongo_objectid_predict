@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""
+Mongo ObjectId Prediction CLI Tool
+Usage:
+    ./mongo-objectid-predict <base_objectid> [--backward] [--counter-diff N] [--per-counter N]
+"""
+
+import argparse
+import sys
+from mongo_objectid_predict import predict
+
+
+def parse_args() -> argparse.Namespace:
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(
+        prog='mongo-objectid-predict',
+        description='Predict MongoDB ObjectIds based on a starting value.'
+    )
+    parser.add_argument(
+        'objectid',
+        help='The base Mongo ObjectId to start predictions from.'
+    )
+    parser.add_argument(
+        '--backward',
+        action='store_true',
+        help='Predict past values instead of future ones.',
+        default=False
+    )
+    parser.add_argument(
+        '--counter-diff',
+        type=int,
+        help='Number of counter iterations to generate.',
+        default=20
+    )
+    parser.add_argument(
+        '--per-counter',
+        type=int,
+        help='Number of epoch time variations per counter.',
+        default=60
+    )
+    return parser.parse_args()
+
+
+def main() -> None:
+    """Main program execution."""
+    args = parse_args()
+
+    try:
+        for oid in predict(
+            base=args.objectid,
+            backward=args.backward,
+            counter_diff=args.counter_diff,
+            per_counter=args.per_counter
+        ):
+            print(oid)
+    except Exception as e:
+        print(f"[!] Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()
