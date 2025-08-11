@@ -33,6 +33,6 @@ Because it is generated **in a predictable pattern**, an ObjectId can be **predi
 
 ---
 # Credits  
-- **Original script by** [andresriancho](https://github.com/andresriancho/mongo-objectid-predict)  
-- **Updated version by me** - simplified and ready-to-run
+- **Original script by [andresriancho](https://github.com/andresriancho/mongo-objectid-predict)**  
+- **Updated version by me - ([The Quan Dao](https://github.com/0fbiscuit))** - simplified and ready-to-run
 ---
